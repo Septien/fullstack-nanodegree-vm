@@ -1,7 +1,7 @@
 #Necesary modules
 #Configuration modules
 import sys
-from sqlalchemy import Column, ForeignKey, Integer, String, Date, Float
+from sqlalchemy import Column, ForeignKey, Integer, String, Date, Numeric
 from sqlalchemy.ext.declarative_base import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
@@ -37,7 +37,7 @@ class Puppy(Base):
     #
     gender = Column(String(6), nullable = False)
     #
-    weight = Column(Float)
+    weight = Column(Numeric(10))
     #
     shelt_id = Column(Integer, ForeignKey('shelter.id'))
     #
