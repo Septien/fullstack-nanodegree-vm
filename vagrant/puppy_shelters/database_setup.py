@@ -33,6 +33,8 @@ class Puppy(Base):
     #
     dateOfBirth = Columnt(Date)
     #
+    picture = Column(String)
+    #
     gender = Column(String(6), nullable = False)
     #
     weight = Column(Float)
