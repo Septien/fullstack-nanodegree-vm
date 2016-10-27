@@ -42,7 +42,7 @@ class Puppy(Base):
     #
     weight = Column(Numeric(10))
     #
-    shelt_id = Column(Integer, ForeignKey('shelter.id'))
+    shelter_id = Column(Integer, ForeignKey('shelter.id'))
     #
     shelter = relationship(Shelter)
 
