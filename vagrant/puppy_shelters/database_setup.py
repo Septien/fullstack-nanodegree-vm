@@ -2,9 +2,12 @@
 #Configuration modules
 import sys
 from sqlalchemy import Column, ForeignKey, Integer, String, Date, Numeric
-from sqlalchemy.ext.declarative_base import declarative_base
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
+
+#Let SQLALchemy know that our classes  correspond to tables on our database
+Base = declarative_base()
 
 #Create class for the corresponding tables to use
 class Shelter(Base):
