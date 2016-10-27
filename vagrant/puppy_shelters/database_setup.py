@@ -24,6 +24,20 @@ class Shelter(Base):
     #
     id = Column(Integer, primary_key = True)
 
+class Puppy(Base):
+    __tablename__ = 'ppuppy'
+    #
+    name = Column(String(40), nullable = False)
+    #
+    birth_date = Columnt(Date, nullable = False)
+    #
+    gender = Column(String(6), nullable = False)
+    #
+    weight = Column(Float, nullable = False)
+    #
+    shelt_id = Column(Integer, ForeignKey('shelter.id'))
+    #
+    shelter = relationship(Shelter)
 
 #Create engine for database contection
 engine = create_engine('sqlite:///puppies.db')
