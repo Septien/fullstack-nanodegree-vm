@@ -12,7 +12,7 @@ class Shelter(Base):
     #
     name = Column(String(80), nullable = False)
     #
-    address = Column(String(80))
+    address = Column(String(250))
     #
     city = Column(String(80))
     #
