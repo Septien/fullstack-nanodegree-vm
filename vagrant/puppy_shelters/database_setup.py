@@ -20,7 +20,7 @@ class Shelter(Base):
     #
     zipCode = Column(String(10))
     #
-    website = Column(String(80))
+    website = Column(String)
     #
     id = Column(Integer, primary_key = True)
 
