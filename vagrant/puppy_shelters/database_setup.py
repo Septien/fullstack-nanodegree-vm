@@ -1,14 +1,14 @@
 #Necesary modules
 #Configuration modules
 import sys
-from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy import Column, ForeignKey, Integer, String, Date, Float
 from sqlalchemy.ext.declarative_base import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
 
 #Create class for the corresponding tables to use
 class Shelter(Base):
-    __table_name__ = 'shelter'
+    __tablename__ = 'shelter'
     #
     name = Column(String(80), nullable = False)
     #
@@ -23,6 +23,7 @@ class Shelter(Base):
     website = Column(String(80))
     #
     id = Column(Integer, primary_key = True)
+
 
 #Create engine for database contection
 engine = create_engine('sqlite:///puppies.db')
