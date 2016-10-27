@@ -12,9 +12,9 @@ class Shelter(Base):
     #
     name = Column(String(80), nullable = False)
     #
-    address = Column(String(80), nullable = False)
+    address = Column(String(80))
     #
-    city = Column(String(80), nullable = False)
+    city = Column(String(80))
     #
     state = Column(String(80))
     #
@@ -29,11 +29,11 @@ class Puppy(Base):
     #
     name = Column(String(40), nullable = False)
     #
-    birth_date = Columnt(Date, nullable = False)
+    birth_date = Columnt(Date)
     #
     gender = Column(String(6), nullable = False)
     #
-    weight = Column(Float, nullable = False)
+    weight = Column(Float)
     #
     shelt_id = Column(Integer, ForeignKey('shelter.id'))
     #
