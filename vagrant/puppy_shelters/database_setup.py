@@ -31,7 +31,7 @@ class Puppy(Base):
     #
     name = Column(String(40), nullable = False)
     #
-    birth_date = Columnt(Date)
+    dateOfBirth = Columnt(Date)
     #
     gender = Column(String(6), nullable = False)
     #
