@@ -47,6 +47,6 @@ class Puppy(Base):
     shelter = relationship(Shelter)
 
 #Create engine for database contection
-engine = create_engine('sqlite:///puppies.db')
+engine = create_engine('sqlite:///puppyshelter.db')
 #Add created class, as tables, to the database
 Base.metadata.create_all(engine)
