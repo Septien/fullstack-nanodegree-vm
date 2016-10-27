@@ -27,6 +27,7 @@ class Shelter(Base):
 class Puppy(Base):
     __tablename__ = 'ppuppy'
     #
+    id = Column(Integer, primary_key = True)
     name = Column(String(40), nullable = False)
     #
     birth_date = Columnt(Date)
