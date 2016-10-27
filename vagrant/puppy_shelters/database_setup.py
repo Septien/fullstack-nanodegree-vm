@@ -18,7 +18,11 @@ class Shelter(Base):
     #
     state = Column(String(80))
     #
-
+    zipCode = Column(Integer)
+    #
+    website = Column(String(80))
+    #
+    id = Column(Integer, primary_key = True)
 
 #Create engine for database contection
 engine = create_engine('sqlite:///puppies.db')
