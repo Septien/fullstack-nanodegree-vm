@@ -18,7 +18,7 @@ class Shelter(Base):
     #
     state = Column(String(20))
     #
-    zipCode = Column(Integer)
+    zipCode = Column(String(10))
     #
     website = Column(String(80))
     #
