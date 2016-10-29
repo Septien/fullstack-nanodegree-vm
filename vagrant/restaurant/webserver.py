@@ -6,6 +6,16 @@ from database_setup import Restaurant, MenuItem, Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
+def create_session():
+    '''
+    Create session for queries.
+    '''
+    engine = create_engine('sqlite:///restaurantmenu.db')
+    Base.metadate.bind = engine
+    DBSession = sessionmaker(bind=engine)
+    session = DBSession()
+    return session
+
 class webserverHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         """
