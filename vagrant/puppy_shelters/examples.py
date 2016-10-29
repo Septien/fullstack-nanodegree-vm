@@ -22,5 +22,8 @@ sixmonths = dt.date.today() - dt.timedelta(weeks = 26)
 
 query = session.query(Puppy).filter(Puppy.dateOfBirth >= sixmonths).order_by(desc(Puppy.dateOfBirth))
 
+#3. Query all puppies by ascending weight
+query = session.query(Puppy).order_by(Puppy.weight)
+
 for q in query:
     print q.name, q.dateOfBirth, q.gender, q.weight
