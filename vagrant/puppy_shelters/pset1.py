@@ -25,5 +25,8 @@ query = session.query(Puppy).filter(Puppy.dateOfBirth >= sixmonths).order_by(des
 #3. Query all puppies by ascending weight
 query = session.query(Puppy).order_by(Puppy.weight)
 
+#4. Query all the puppies grouped by the shelter in which they are staying.
+query = session.query(Puppy).group_by(Puppy.shelter_id)
+
 for q in query:
-    print q.name, q.dateOfBirth, q.gender, q.weight
+    print q.name, q.dateOfBirth, q.gender, q.weight, q.shelter_id
