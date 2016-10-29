@@ -1,6 +1,11 @@
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 import cgi
 
+#Necesary moduls for CRUD
+from database_setup import Restaurant, MenuItem, Base
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
 class webserverHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         """
