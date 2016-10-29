@@ -15,17 +15,26 @@ class webserverHandler(BaseHTTPRequestHandler):
                 self.end_headers()
 
                 output = ""
-                output += "<html><body>Hello!</body></html>"
+                output += "<html><body>"
+                output += "<h1>Hello!</h1>"
+                output += '''<form method = 'POST' enctype='multipart/form-data' action='/hello'><h2>What would you like me to say?</h2>
+                        <input name="message" type="text"><input type="submit" value="Submit"> </form>'''
+                output += "</body></html>"
                 self.wfile.write(output)
                 print output
                 return
+
             if self.path.endswith("/hola"):
                 self.send_response(200)
                 self.send_header('Content-type', 'text/html')
                 self.end_headers()
 
                 output = ""
-                output += "<html><body>&#161Hola! <a href='/hello'>Back to Hello</a></body></html>"
+                output += "<html><body>"
+                output += "<h1>&#161Hola!</h1>"
+                output += '''<form method = 'POST' enctype='multipart/form-data' action='/hello'><h2>What would you like me to say?</h2>
+                        <input name="message" type="text"><input type="submit" value="Submit"> </form>'''
+                output += "</body></html>"
                 self.wfile.write(output)
                 print output
                 return
@@ -42,21 +51,20 @@ class webserverHandler(BaseHTTPRequestHandler):
             self.send_response(301)
             self.send_header('Content-type', 'text/html')
             self.end_headers()
-            output += ""
 
             ctype, pdict = cgi.parse_header(self.headers.getheader('content-type'))
             if ctype == 'multipart/form-data':
-                fields = cgi.parse_multipar(self.rfile, pdict)
+                fields = cgi.parse_multipart(self.rfile, pdict)
                 messagecontent = fields.get('message')
 
             #Decide what to send
             output = ""
             output += "<html><body>"
-            output += "<h2> Okay, how about this: </h2>"
+            output += " <h2> Okay, how about this: </h2>"
             output += "<h1> %s </h1>" % messagecontent[0]
             #Post request and header tag. Request the user to input something
-            output += '''<form method = 'POST' enctype='multipart/form-data' action='hello'>What would you like me to say?
-                        </h2><input name="message" type="text"><input type=submit value="Submit"> </form>'''
+            output += '''<form method = 'POST' enctype='multipart/form-data' action='/hello'><h2>What would you like me to say?</h2>
+                        <input name="message" type="text"><input type="submit" value="Submit"> </form>'''
             output += "</body></html>"
             self.wfile.write(output)
             print output
