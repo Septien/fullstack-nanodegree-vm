@@ -5,6 +5,7 @@ class webserverHandler(BaseHTTPRequestHandler):
         """
         Handle GET request. Use pattern matching for knowing wich
         resource are being tryed to access.
+        Overrides do_GET method of base class.
         """
         try:
             if self.path.endswith("/hello"):
