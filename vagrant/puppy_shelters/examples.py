@@ -9,6 +9,10 @@ import random
 engine = create_engine('sqlite:///puppyshelter.db')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
-sessino = DBSession()
+session = DBSession()
 
+#1. Query all puppies and return the result in ascending alphabetical order
+query = session.query(Puppy).order_by(Puppy.name)
 
+for q in query:
+    print q.name, q.dateOfBirth, q.gender, q.weight
