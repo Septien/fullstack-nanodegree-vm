@@ -29,9 +29,9 @@ class webserverHandler(BaseHTTPRequestHandler):
                 output = ""
                 output += "<html><body>"
                 for q in query:
-                    output += "<h1>%s</h1>" % q.name
-                    output += "<h3><a href='/edit'>Edit</a></h3>"
-                    output += "<h3><a href='/delete'>Delete</a></h3>"
+                    output += q.name
+                    output += "</br><a href='/edit'>Edit</a>"
+                    output += "</br><a href='/delete'>Delete</a></br></br>"
                 #output += '''<form method = 'POST' enctype='multipart/form-data' action='/hello'><h2>What would you like me to say?</h2>
                 #        <input name="message" type="text"><input type="submit" value="Submit"> </form>'''
                 output += "<h2><a href='/new'>Make a New Restaurant</h2>"
