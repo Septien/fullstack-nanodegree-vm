@@ -20,6 +20,27 @@ class webserverHandler(BaseHTTPRequestHandler):
         Overrides do_GET method of base class.
         """
         try:
+            #Handler for edit restaurants
+            #Iterate over all of them
+            restaurants = session.query(Restaurant).all()
+            for restaurant in restaurants:
+                #It is the restaurant?
+                path = "restaurans/%s/edit" % restaurant.id
+                if self.path.endswith(path):
+                    self.send_response(200)
+                    self.send_header('Content-type', 'text/html')
+                    self.end_headers()
+                    output = ""
+                    output += "<html><body>"
+                    output += "<h1>%s</h1>" % restaurant.name
+                    output += "<form method='POST' enctype='multipart/form-data' action='%s' >" % path
+                    output += "<input name='editRestaurant' type='text' placeholder='%s' >" % restaurant.name
+                    output += "<input type='submit' value='Edit' >"
+                    output += "</form></body></html>"
+                    self.wfile.write(output)
+                    return
+
+
             if self.path.endswith("/restaurants/new"):
                 self.send_response(200)
                 self.send_header('Content-type', 'text/html')
@@ -44,7 +65,7 @@ class webserverHandler(BaseHTTPRequestHandler):
                 output += "<html><body>"
                 for q in query:
                     output += q.name
-                    output += "</br><a href='/edit'>Edit</a>"
+                    output += "</br><a href='/%s/edit'>Edit</a>" % q.id
                     output += "</br><a href='/delete'>Delete</a></br></br>"
                 #output += '''<form method = 'POST' enctype='multipart/form-data' action='/hello'><h2>What would you like me to say?</h2>
                 #        <input name="message" type="text"><input type="submit" value="Submit"> </form>'''
