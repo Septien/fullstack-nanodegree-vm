@@ -20,6 +20,20 @@ class webserverHandler(BaseHTTPRequestHandler):
         Overrides do_GET method of base class.
         """
         try:
+            if self.path.endswith("/resturants/new"):
+                self.send_response(200)
+                self.send_header('Content-type', 'text/html')
+                self.end_headers()
+                output = ""
+                output += "<html><body>"
+                output += "<h1>Make a New Restaurant</h1>"
+                output += "<form method='POST' enctype='multipart/form-data' action='restaurants/new' >"
+                output += "<input name='newRestaurantName' type='text' placeholder='New Restaurant Name' >"
+                output += "<input type='submit' value='Create' >"
+                output += "</body></html>"
+                self.wfile.write(output)
+                return
+
             if self.path.endswith("/restaurants"):
                 self.send_response(200)
                 self.send_header('Content-type', 'text/html')
@@ -34,7 +48,7 @@ class webserverHandler(BaseHTTPRequestHandler):
                     output += "</br><a href='/delete'>Delete</a></br></br>"
                 #output += '''<form method = 'POST' enctype='multipart/form-data' action='/hello'><h2>What would you like me to say?</h2>
                 #        <input name="message" type="text"><input type="submit" value="Submit"> </form>'''
-                output += "<h2><a href='/restaurants/new'>Make a New Restaurant Here</h2>"
+                voutput += "<h2><a href='/restaurants/new'>Make a New Restaurant Here</h2>"
                 output += "</body></html>"
                 self.wfile.write(output)
                 print output
