@@ -52,7 +52,7 @@ class webserverHandler(BaseHTTPRequestHandler):
                     output += "<html><body>"
                     output += "<h1>%s</h1>" % restaurant.name
                     output += "<form method='POST' enctype='multipart/form-data' action='%s' >" % path
-                    output += "<input name='editRestaurant' type='text' placeholder='%s' >" % restaurant.name
+                    output += "<input name='deleteRestaurant' type='text' placeholder='%s' >" % restaurant.name
                     output += "<input type='submit' value='Edit' >"
                     output += "</form></body></html>"
                     self.wfile.write(output)
@@ -101,6 +101,23 @@ class webserverHandler(BaseHTTPRequestHandler):
         Overrides do_POST method of base class.
         """
         try:
+            #Handler POST method for delete restaurants
+            if self.path.endswith("/delete"):
+                ctype, pdict = cgi.parse_header(self.headers.getheader('content-type'))
+                if ctype == 'multipart/form-data':
+                    fields = cgi.parse_multipart(self.rfile, pdict)
+                    messagecontent = fields.get('deleteRestaurant')
+                    restaurantIDPath = self.path.split("/")[2]
+                    restaurantQuery = session.query(Restaurant).filter_by(id = restaurantIDPath).one()
+                    if restaurantQuery != []:
+                        restaurantQuery.name = messagecontent[0]
+                        session.add(restaurantQuery)
+                        session.commit()
+                        self.send_response(301)
+                        self.send_header('Content-type', 'text/html')
+                        self.send_header('Location', '/restaurants')
+                        self.end_headers()
+
             #Handler POST method for edit restaurants
             restaurants = session.query(Restaurant).all()
             for restaurant in restaurants:
