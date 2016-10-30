@@ -70,15 +70,15 @@ class webserverHandler(BaseHTTPRequestHandler):
                     fields = cgi.parse_multipart(sefl.rfile, pdict)
                     messagecontent = fields.get('newRestaurantName')
 
-                #Create new restaurant class
-                newRestaurant = Restaurant(name = messagecontent[0])
-                session.add(newRestaurant)
-                session.commit()
+                    #Create new restaurant class
+                    newRestaurant = Restaurant(name = messagecontent[0])
+                    session.add(newRestaurant)
+                    session.commit()
 
-                self.send_response(301)
-                self.send_header('Content-type', 'text/html')
-                self.send_header('Location', '/restaurants')
-                self.end_headers()
+                    self.send_response(301)
+                    self.send_header('Content-type', 'text/html')
+                    self.send_header('Location', '/restaurants')
+                    self.end_headers()
                 return
             # #Recieve the post request
             # self.send_response(301)
