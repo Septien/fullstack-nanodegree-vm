@@ -6,15 +6,11 @@ from database_setup import Restaurant, MenuItem, Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-def create_session():
-    '''
-    Create session for queries.
-    '''
-    engine = create_engine('sqlite:///restaurantmenu.db')
-    Base.metadata.bind = engine
-    DBSession = sessionmaker(bind=engine)
-    session = DBSession()
-    return session
+#Create session and connect to database
+engine = create_engine('sqlite:///restaurantmenu.db')
+Base.metadata.bind = engine
+DBSession = sessionmaker(bind=engine)
+session = DBSession()
 
 class webserverHandler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -29,7 +25,6 @@ class webserverHandler(BaseHTTPRequestHandler):
                 self.send_header('Content-type', 'text/html')
                 self.end_headers()
 
-                session = create_session()
                 query = session.query(Restaurant).all()
                 output = ""
                 output += "<html><body>"
