@@ -34,7 +34,7 @@ class webserverHandler(BaseHTTPRequestHandler):
                     output += "</br><a href='/delete'>Delete</a></br></br>"
                 #output += '''<form method = 'POST' enctype='multipart/form-data' action='/hello'><h2>What would you like me to say?</h2>
                 #        <input name="message" type="text"><input type="submit" value="Submit"> </form>'''
-                output += "<h2><a href='/new'>Make a New Restaurant</h2>"
+                output += "<h2><a href='/restaurants/new'>Make a New Restaurant Here</h2>"
                 output += "</body></html>"
                 self.wfile.write(output)
                 print output
