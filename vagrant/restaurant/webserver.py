@@ -79,7 +79,7 @@ class webserverHandler(BaseHTTPRequestHandler):
                     self.send_header('Content-type', 'text/html')
                     self.send_header('Location', '/restaurants')
                     self.end_headers()
-                return
+
             # #Recieve the post request
             # self.send_response(301)
             # self.send_header('Content-type', 'text/html')
