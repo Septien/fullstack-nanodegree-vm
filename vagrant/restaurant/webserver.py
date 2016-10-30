@@ -64,27 +64,43 @@ class webserverHandler(BaseHTTPRequestHandler):
         Overrides do_POST method of base class.
         """
         try:
-            #Recieve the post request
-            self.send_response(301)
-            self.send_header('Content-type', 'text/html')
-            self.end_headers()
+            if self.path.endswith("/restaurant/new"):
+                ctype, pdict = cgi.parse_header(self.headers.getheader('content-type'))
+                if ctyp == 'multipart/form-data':
+                    fields = cgi.parse_multipart(sefl.rfile, pdict)
+                messagecontent = fields.get('newRestaurantName')
 
-            ctype, pdict = cgi.parse_header(self.headers.getheader('content-type'))
-            if ctype == 'multipart/form-data':
-                fields = cgi.parse_multipart(self.rfile, pdict)
-                messagecontent = fields.get('message')
+                #Create new restaurant class
+                newRestaurant = Restaurant(name = messagecontent[0])
+                session.add(newRestaurant)
+                session.commit()
 
-            #Decide what to send
-            output = ""
-            output += "<html><body>"
-            output += " <h2> Okay, how about this: </h2>"
-            output += "<h1> %s </h1>" % messagecontent[0]
-            #Post request and header tag. Request the user to input something
-            output += '''<form method = 'POST' enctype='multipart/form-data' action='/hello'><h2>What would you like me to say?</h2>
-                        <input name="message" type="text"><input type="submit" value="Submit"> </form>'''
-            output += "</body></html>"
-            self.wfile.write(output)
-            print output
+                self.send_response(301)
+                self.send_header('Content-type', 'text/html')
+                self.send_header('Location', '/restaurants')
+                self.end_headers()
+                return
+            # #Recieve the post request
+            # self.send_response(301)
+            # self.send_header('Content-type', 'text/html')
+            # self.end_headers()
+
+            # ctype, pdict = cgi.parse_header(self.headers.getheader('content-type'))
+            # if ctype == 'multipart/form-data':
+            #     fields = cgi.parse_multipart(self.rfile, pdict)
+            #     messagecontent = fields.get('message')
+
+            # #Decide what to send
+            # output = ""
+            # output += "<html><body>"
+            # output += " <h2> Okay, how about this: </h2>"
+            # output += "<h1> %s </h1>" % messagecontent[0]
+            # #Post request and header tag. Request the user to input something
+            # output += '''<form method = 'POST' enctype='multipart/form-data' action='/hello'><h2>What would you like me to say?</h2>
+            #             <input name="message" type="text"><input type="submit" value="Submit"> </form>'''
+            # output += "</body></html>"
+            # self.wfile.write(output)
+            # print output
         except:
             pass
 
