@@ -20,14 +20,14 @@ class webserverHandler(BaseHTTPRequestHandler):
         Overrides do_GET method of base class.
         """
         try:
-            if self.path.endswith("/resturants/new"):
+            if self.path.endswith("/restaurants/new"):
                 self.send_response(200)
                 self.send_header('Content-type', 'text/html')
                 self.end_headers()
                 output = ""
                 output += "<html><body>"
                 output += "<h1>Make a New Restaurant</h1>"
-                output += "<form method='POST' enctype='multipart/form-data' action='restaurants/new' >"
+                output += "<form method='POST' enctype='multipart/form-data' action='/restaurants/new' >"
                 output += "<input name='newRestaurantName' type='text' placeholder='New Restaurant Name' >"
                 output += "<input type='submit' value='Create' >"
                 output += "</body></html>"
@@ -64,11 +64,11 @@ class webserverHandler(BaseHTTPRequestHandler):
         Overrides do_POST method of base class.
         """
         try:
-            if self.path.endswith("/restaurant/new"):
+            if self.path.endswith("/restaurants/new"):
                 ctype, pdict = cgi.parse_header(self.headers.getheader('content-type'))
                 if ctyp == 'multipart/form-data':
                     fields = cgi.parse_multipart(sefl.rfile, pdict)
-                messagecontent = fields.get('newRestaurantName')
+                    messagecontent = fields.get('newRestaurantName')
 
                 #Create new restaurant class
                 newRestaurant = Restaurant(name = messagecontent[0])
