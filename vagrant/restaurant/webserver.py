@@ -11,7 +11,7 @@ def create_session():
     Create session for queries.
     '''
     engine = create_engine('sqlite:///restaurantmenu.db')
-    Base.metadate.bind = engine
+    Base.metadata.bind = engine
     DBSession = sessionmaker(bind=engine)
     session = DBSession()
     return session
@@ -24,35 +24,24 @@ class webserverHandler(BaseHTTPRequestHandler):
         Overrides do_GET method of base class.
         """
         try:
-            if self.path.endswith("/hello"):
+            if self.path.endswith("/restaurants"):
                 self.send_response(200)
                 self.send_header('Content-type', 'text/html')
                 self.end_headers()
 
+                session = create_session()
+                query = session.query(Restaurant).all()
                 output = ""
                 output += "<html><body>"
-                output += "<h1>Hello!</h1>"
-                output += '''<form method = 'POST' enctype='multipart/form-data' action='/hello'><h2>What would you like me to say?</h2>
-                        <input name="message" type="text"><input type="submit" value="Submit"> </form>'''
+                for q in query:
+                    output += "<h1>%s</h1>" % q.name
+                #output += '''<form method = 'POST' enctype='multipart/form-data' action='/hello'><h2>What would you like me to say?</h2>
+                #        <input name="message" type="text"><input type="submit" value="Submit"> </form>'''
                 output += "</body></html>"
                 self.wfile.write(output)
                 print output
                 return
 
-            if self.path.endswith("/hola"):
-                self.send_response(200)
-                self.send_header('Content-type', 'text/html')
-                self.end_headers()
-
-                output = ""
-                output += "<html><body>"
-                output += "<h1>&#161Hola!</h1>"
-                output += '''<form method = 'POST' enctype='multipart/form-data' action='/hello'><h2>What would you like me to say?</h2>
-                        <input name="message" type="text"><input type="submit" value="Submit"> </form>'''
-                output += "</body></html>"
-                self.wfile.write(output)
-                print output
-                return
         except IOError:
             self.send_error(404, "File Not Found %s" % self.path)
 
