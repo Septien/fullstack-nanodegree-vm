@@ -30,10 +30,9 @@ class webserverHandler(BaseHTTPRequestHandler):
                     self.end_headers()
                     output = ""
                     output += "<html><body>"
-                    output += "<h1>%s</h1>" % restaurantQuery.name
+                    output += "<h1>Are you sure you want to delete %s?</h1>" % restaurantQuery.name
                     output += "<form method='POST' enctype='multipart/form-data' action='/restaurants/%s/delete' >" % restaurantIDPath
-                    output += "<input name='editRestaurant' type='text' placeholder='%s' >" % restaurantQuery.name
-                    output += "<input type='submit' value='Edit' >"
+                    output += "<input type='submit' value='Delete' >"
                     output += "</form></body></html>"
                     self.wfile.write(output)
                 return
