@@ -66,7 +66,7 @@ class webserverHandler(BaseHTTPRequestHandler):
         try:
             if self.path.endswith("/restaurants/new"):
                 ctype, pdict = cgi.parse_header(self.headers.getheader('content-type'))
-                if ctyp == 'multipart/form-data':
+                if ctype == 'multipart/form-data':
                     fields = cgi.parse_multipart(self.rfile, pdict)
                     messagecontent = fields.get('newRestaurantName')
 
