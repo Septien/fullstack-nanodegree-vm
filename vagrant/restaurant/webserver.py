@@ -25,7 +25,7 @@ class webserverHandler(BaseHTTPRequestHandler):
             restaurants = session.query(Restaurant).all()
             for restaurant in restaurants:
                 #It is the restaurant?
-                path = "restaurans/%s/edit" % restaurant.id
+                path = "/restaurants/%s/edit" % restaurant.id
                 if self.path.endswith(path):
                     self.send_response(200)
                     self.send_header('Content-type', 'text/html')
@@ -65,7 +65,7 @@ class webserverHandler(BaseHTTPRequestHandler):
                 output += "<html><body>"
                 for q in query:
                     output += q.name
-                    output += "</br><a href='/%s/edit'>Edit</a>" % q.id
+                    output += "</br><a href='/restaurants/%s/edit'>Edit</a>" % q.id
                     output += "</br><a href='/delete'>Delete</a></br></br>"
                 #output += '''<form method = 'POST' enctype='multipart/form-data' action='/hello'><h2>What would you like me to say?</h2>
                 #        <input name="message" type="text"><input type="submit" value="Submit"> </form>'''
