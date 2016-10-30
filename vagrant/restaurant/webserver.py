@@ -35,11 +35,14 @@ class webserverHandler(BaseHTTPRequestHandler):
                 output += "<html><body>"
                 for q in query:
                     output += "<h1>%s</h1>" % q.name
+                    output += "<a href='/edit'>Edit</a>"
+                    output += "<a href='/delete'>Delete</a>"
                 #output += '''<form method = 'POST' enctype='multipart/form-data' action='/hello'><h2>What would you like me to say?</h2>
                 #        <input name="message" type="text"><input type="submit" value="Submit"> </form>'''
                 output += "</body></html>"
                 self.wfile.write(output)
                 print output
+                print "\n"
                 return
 
         except IOError:
