@@ -85,6 +85,27 @@ class webserverHandler(BaseHTTPRequestHandler):
         Overrides do_POST method of base class.
         """
         try:
+            #Handler POST method for edit restaurants
+            restaurants = session.query(Restaurant).all()
+            for restaurant in restaurants:
+                #It is the restaurant?
+                path = "/restaurants/%s/edit" % restaurant.id
+                if self.path.endswith(path):
+                    ctype, pdict = cgi.parse_header(self.headers.getheader('content-type'))
+                    if ctype == 'multipart/form-data':
+                        fields = cgi.parse_multipart(self.rfile, pdict)
+                        messagecontent = fields.get('editRestaurant')
+                        #Modify restaurant
+                        restaurant.name = messagecontent[0]
+                        session.add(restaurant)
+                        session.commit()
+
+                        self.send_response(301)
+                        self.send_header('Content-type', 'text/html')
+                        self.send_header('Location', '/restaurants')
+                        self.end_headers()
+                        break
+
             if self.path.endswith("/restaurants/new"):
                 ctype, pdict = cgi.parse_header(self.headers.getheader('content-type'))
                 if ctype == 'multipart/form-data':
